@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="medium">
+  <ion-toolbar color="primary">
     <ion-title>
       TODO
     </ion-title>
@@ -13,9 +13,10 @@
     </ion-item>
     <ion-item-sliding *ngFor="let tarefa of tarefas">
         <ion-item>
-          <ion-label>{{tarefa.descricao}}</ion-label>
-          <ion-icon slot="start" name="radio-button-off" *ngIf="!tarefa.status"></ion-icon>
-          <ion-icon slot="start" name="checkmark-circle" *ngIf="tarefa.status"></ion-icon>
+          <ion-label *ngIf="!tarefa.status">{{tarefa.descricao}}</ion-label>
+          <ion-label *ngIf="tarefa.status"><del>{{tarefa.descricao}}</del></ion-label>
+          <ion-icon slot="start" name="radio-button-off" *ngIf="!tarefa.status" color="primary"></ion-icon>
+          <ion-icon slot="start" name="checkmark-circle" *ngIf="tarefa.status" color="danger"></ion-icon>
         </ion-item>
 
         <ion-item-options side="end">
@@ -27,7 +28,7 @@
     </ion-item-sliding>    
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end">
-    <ion-fab-button color="secondary" (click)="showAdd()">
+    <ion-fab-button color="primary" (click)="showAdd()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

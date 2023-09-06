@@ -10,7 +10,13 @@ import { Tarefa } from '../model/tarefa.model';
 export class HomePage {
   tarefas: Tarefa[] = [];
 
-  constructor(private alert: AlertController, private toastController: ToastController) {}
+  constructor(private alert: AlertController, private toastController: ToastController) {
+    let dados = localStorage.getItem('TarefasDB');
+
+    if(dados != null){
+      this.tarefas = JSON.parse(dados);
+    }
+  }
 
   async showAdd(){
     const screen = await this.alert.create({
@@ -30,22 +36,28 @@ export class HomePage {
         {
           text: 'Adicionar',
           handler: (form) => {
-                                if(!form.task || form.task.trim() == ''){
-                                  this.showToast(`A tarefa precisa ser preenchida`);
-                                  return;
-                                }
-
-                                let obj = {id: this.getId(this.tarefas), 
-                                           descricao: form.task, 
-                                           status: false};
-
-                                this.tarefas.push(obj);
+                                this.atualizarDados(form);
                              }
         }
       ]
     });
 
     screen.present();
+  }
+
+  atualizarDados(form: any){
+    if(!form.task || form.task.trim() == ''){
+      this.showToast(`A tarefa precisa ser preenchida`);
+      return;
+    }
+
+    let obj = {id: this.getId(this.tarefas), 
+               descricao: form.task, 
+               status: false};
+
+    this.tarefas.push(obj);
+
+    localStorage.setItem('TarefasDB', JSON.stringify(this.tarefas));
   }
 
   apagar(id: number) {
