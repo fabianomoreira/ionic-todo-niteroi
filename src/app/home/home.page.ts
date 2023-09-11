@@ -65,6 +65,8 @@ export class HomePage {
 
     this.tarefas.splice(index, 1);
 
+    localStorage.setItem('TarefasDB', JSON.stringify(this.tarefas));
+
     this.showToast('Tarefa apagada com sucesso!');
   }
 
@@ -104,6 +106,8 @@ export class HomePage {
           text: 'Salvar',
           handler: (form) => {
                                 tarefa.descricao = form.newTask;
+                                localStorage.setItem('TarefasDB', JSON.stringify(this.tarefas));
+
                              }
         }
       ]
