@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Tarefa } from '../model/tarefa.model';
+import { TarefaService } from '../service/tarefa.service';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +11,14 @@ import { Tarefa } from '../model/tarefa.model';
 export class HomePage {
   tarefas: Tarefa[] = [];
 
-  constructor(private alert: AlertController, private toastController: ToastController) {
-    let dados = localStorage.getItem('TarefasDB');
-
+  constructor(private service: TarefaService, private alert: AlertController, private toastController: ToastController) {
+    //let dados = localStorage.getItem('TarefasDB');
+    service.listarTarefas().subscribe(dados => this.tarefas = dados);
+/*
     if(dados != null){
       this.tarefas = JSON.parse(dados);
     }
+*/    
   }
 
   async showAdd(){
