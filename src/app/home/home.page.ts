@@ -59,11 +59,14 @@ export class HomePage {
   }
 
   apagar(id: number) {
+    /*
     let index = this.tarefas.findIndex(tarefa => tarefa.id == id);
 
     this.tarefas.splice(index, 1);
 
     localStorage.setItem('TarefasDB', JSON.stringify(this.tarefas));
+    */
+    this.apagarTarefa(id);
 
     this.showToast('Tarefa apagada com sucesso!');
   }
@@ -126,5 +129,9 @@ export class HomePage {
 
   listarTarefas(){
     this.service.listarTarefas().subscribe(dados => this.tarefas = dados);
+  }
+
+  apagarTarefa(id: number){
+    this.service.excluirTarefa(id).subscribe(() => this.listarTarefas());
   }
 }

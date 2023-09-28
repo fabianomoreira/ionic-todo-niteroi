@@ -17,4 +17,8 @@ export class TarefaService {
     incluirTarefa(tarefa: Tarefa){
         return this.http.post(`${TODO_API}/backtodo/rest/tarefa`, tarefa);
     }
+
+    excluirTarefa(id: number){
+        return this.http.delete(`${TODO_API}/backtodo/rest/tarefa/tarefas/${id}`);
+    }
 }
