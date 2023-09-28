@@ -2,10 +2,5 @@
   "name": "ToDo",
   "integrations": {
     "capacitor": {}
-  },
-  "type": "angular",
-  "proxies": [{
-    "path": "/",
-    "proxyUrl": "http://localhost:8080"
-}]
+  }
 }
