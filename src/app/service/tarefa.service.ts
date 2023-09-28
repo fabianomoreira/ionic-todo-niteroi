@@ -11,15 +11,10 @@ export class TarefaService {
     constructor(private http: HttpClient) {}
 
     listarTarefas(): Observable<Tarefa[]>{
-        /*
-            const headers = new HttpHeaders({'Content-Type':'application/json', 
-                                             'Access-Control-Allow-Origin':'*',
-                                             'Access-Control-Allow-Methods':'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-                                             'Access-Control-Allow-Headers':'X-Requested-With,content-type',
-                                             'Access-Control-Allow-Credentials':'true'});
-  
-            const requestOptions = { headers: headers };
-        */
-        return this.http.get<Tarefa[]>(`${TODO_API}/backtodo/rest/tarefa/listar/`)
+        return this.http.get<Tarefa[]>(`${TODO_API}/backtodo/rest/tarefa/listar/`);
+    }
+
+    incluirTarefa(tarefa: Tarefa){
+        return this.http.post(`${TODO_API}/backtodo/rest/tarefa`, tarefa);
     }
 }

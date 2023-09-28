@@ -12,13 +12,7 @@ export class HomePage {
   tarefas: Tarefa[] = [];
 
   constructor(private service: TarefaService, private alert: AlertController, private toastController: ToastController) {
-    //let dados = localStorage.getItem('TarefasDB');
     service.listarTarefas().subscribe(dados => this.tarefas = dados);
-/*
-    if(dados != null){
-      this.tarefas = JSON.parse(dados);
-    }
-*/    
   }
 
   async showAdd(){
@@ -39,7 +33,8 @@ export class HomePage {
         {
           text: 'Adicionar',
           handler: (form) => {
-                                this.atualizarDados(form);
+                                //this.atualizarDados(form);
+                                this.incluirTarefa(form);
                              }
         }
       ]
@@ -121,5 +116,15 @@ export class HomePage {
 
   alterarStatus(tarefa: Tarefa){
     tarefa.status = !tarefa.status;
+  }
+
+  incluirTarefa(form: any){
+    let tarefa: Tarefa = {id: 0, descricao: form.task, status: false};
+
+    this.service.incluirTarefa(tarefa).subscribe(() => this.listarTarefas());
+  }
+
+  listarTarefas(){
+    this.service.listarTarefas().subscribe(dados => this.tarefas = dados);
   }
 }
